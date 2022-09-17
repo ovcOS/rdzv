@@ -64,7 +64,12 @@ export const Map = React.memo(
           onLoad={(instance) => onAutocompleteLoad(instance, setAutocomplete)}
           onPlaceChanged={() => onAutocompletePlaceChanged(autocomplete, setSelectedOrigin)}
         >
-          <TextField placeholder="Type a location" style={{ marginTop: '20px', marginBottom: '30px' }} />
+          <TextField
+            id="location-input"
+            variant="standard"
+            label="Location"
+            style={{ marginTop: '20px', marginBottom: '30px' }}
+          />
         </Autocomplete>
         <GoogleMap
           options={{ styles: mapStyles }}

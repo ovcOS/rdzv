@@ -48,7 +48,7 @@ const TakePartContent = ({ room, participantId }: { room: RoomProps; participant
   const disabled = !name || name.length <= 3;
   return (
     <>
-      <TextField id="standard-basic" label="Name" variant="standard" onChange={(v) => setName(v.target.value)} />
+      <TextField id="name-input" label="Name" variant="standard" onChange={(v) => setName(v.target.value)} />
       <Typography variant="body2" gutterBottom style={{ marginTop: '10px' }}>
         Location: Zürich, Switzerland (detected)
       </Typography>
