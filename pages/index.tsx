@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import styles from '../styles/Home.module.css';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import { ExistingRoomSettings, NewRoomSettings } from '@/components';

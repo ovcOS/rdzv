@@ -23,7 +23,7 @@ export const Map = React.memo(
     existingOrigins?: LocationProps[];
   }) => {
     const [center, setCenter] = useState(DEFAULT_POSITION);
-    const [travelMode, setTravelMode] = useState('TRANSIT' as TravelMode);
+    const [travelMode] = useState('TRANSIT' as TravelMode);
     const [directionsResult, setDirectionsResult] = useState([] as DirectionsResult[]);
 
     useEffect(() => {

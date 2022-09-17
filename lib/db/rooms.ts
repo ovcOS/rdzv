@@ -26,7 +26,7 @@ export const insertRoom = async (room: RoomProps): Promise<void> => {
 
 export const updateRoom = async (room: RoomProps): Promise<void> => {
   const collection = await getRoomsCollection();
-  console.log('updateRoom', { room, participants: room.participants });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, ...newRoom } = room;
   collection.updateOne({ _id: room._id }, { $set: newRoom });
 };

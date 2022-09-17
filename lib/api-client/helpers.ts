@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const post = async (endpoint: string, data: any) => {
   const body = JSON.stringify(data);
   const options = {
