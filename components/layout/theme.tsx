@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { teal } from '@mui/material/colors';
+import { yellow } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
@@ -7,9 +7,9 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: teal[600],
-      light: teal[400],
-      dark: teal[800],
+      main: yellow[600],
+      light: yellow[400],
+      dark: yellow[800],
     },
   },
 });
