@@ -11,7 +11,6 @@ import {
 type SetState<T> = Dispatch<SetStateAction<T>>;
 type PlaceResult = google.maps.places.PlaceResult;
 type AutocompleteProps = google.maps.places.Autocomplete;
-type TravelMode = google.maps.TravelMode;
 type DirectionsResult = google.maps.DirectionsResult;
 type DirectionsStatus = google.maps.DirectionsStatus;
 type Position = { lat: number; lng: number };
@@ -68,8 +67,7 @@ export const Map = React.memo(() => {
   const [destination, setSelectedDestination] = useState(null as Position | null);
   const [autocomplete, setAutocomplete] = useState(null as AutocompleteProps | null);
   // for now only using transit as travel mode
-  const [travelMode, setTravelMode] = useState('TRANSIT' as TravelMode);
-  // if we have a directions result, render a DirectionsRenderer
+  const [travelMode, setTravelMode] = useState('TRANSIT' as TransportationMode);
   const [directionsResult, setDirectionsResult] = useState(null as DirectionsResult | null);
 
   useEffect(() => {

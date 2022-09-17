@@ -9,7 +9,7 @@ declare type RoomProps = {
   meetingLocation?: LocationProps;
 };
 
-declare type TransportationMode = 'public' | 'walking' | 'car' | 'bike';
+declare type TransportationMode = google.maps.TravelMode;
 
 declare type LocationProps = {
   lat: number;
