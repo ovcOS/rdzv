@@ -1,8 +1,8 @@
 export const mapOriginsToFinalDestination = (
   existingOrigins: LocationProps[],
-  origin: LocationProps | null
+  participantOrigin: LocationProps | null
 ): { origin: LocationProps; destination: LocationProps }[] => {
-  const allOrigins = [...existingOrigins, ...(origin ? [origin] : [])];
+  const allOrigins = [...existingOrigins, ...(participantOrigin ? [participantOrigin] : [])];
   const finalDestination = allOrigins.reduce(
     (res, location, index, original) => {
       const { length } = original;

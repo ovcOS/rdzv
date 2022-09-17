@@ -40,7 +40,7 @@ export const HeaderCard = ({ room, participantId }: { room: RoomProps; participa
   <Card>
     <CardContent>
       <Typography gutterBottom variant="h5" component="div" style={{ marginBottom: '20px' }}>
-        Let’s meet: 🏡 {room.name}
+        Let’s meet: <b>{room.name}</b>
       </Typography>
       <Typography gutterBottom variant="h6" component="div" style={{ marginBottom: '20px' }}>
         Who’s coming so far?
@@ -56,6 +56,7 @@ export const HeaderCard = ({ room, participantId }: { room: RoomProps; participa
             </Grid>
             <Grid container wrap="nowrap">
               <Grid
+                item
                 xs={11}
                 style={{
                   marginLeft: '15px',
@@ -67,7 +68,9 @@ export const HeaderCard = ({ room, participantId }: { room: RoomProps; participa
               >
                 <LocationOnIcon /> {lat} {lng}
               </Grid>
-              <Grid xs={1}>{isParticipant ? <CheckBoxIcon /> : ''}</Grid>
+              <Grid item xs={1}>
+                {isParticipant ? <CheckBoxIcon /> : ''}
+              </Grid>
             </Grid>
           </Paper>
         );

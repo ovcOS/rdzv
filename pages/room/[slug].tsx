@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { getParticipantId } from '@/lib/web';
 import { HeaderCard } from './HeaderCard';
 import { ParticipantForm } from './ParticipantForm';
+import { LoadScript } from '@react-google-maps/api';
+import { LIBRARIES } from '@/components/map/lib';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const roomSlug = context.params?.slug as string;
@@ -27,12 +29,12 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-const MapCard = ({ room }: { room: RoomProps }) => {
+const MapCard = ({ room, participantOrigin }: { room: RoomProps; participantOrigin: LocationProps | null }) => {
   const existingOrigins = room.participants.map((v) => v.location);
   return (
     <Card>
       <CardContent>
-        <Map existingOrigins={existingOrigins} />
+        <Map existingOrigins={existingOrigins} participantOrigin={participantOrigin} />
       </CardContent>
     </Card>
   );
@@ -40,6 +42,7 @@ const MapCard = ({ room }: { room: RoomProps }) => {
 
 const Room = ({ room }: { room: RoomProps }) => {
   const [participantId, setParticipantId] = useState('');
+  const [participantOrigin, setSelectedOrigin] = useState(null as LocationProps | null);
 
   useEffect(() => {
     setParticipantId(getParticipantId());
@@ -50,25 +53,27 @@ const Room = ({ room }: { room: RoomProps }) => {
   const hasParticipant = room.participants.find((v) => v.id === participantId);
 
   return (
-    <Container maxWidth="md" style={{ marginBottom: '20px' }}>
-      <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid xs={12}>
-          <HeaderCard room={room} participantId={participantId} />
-        </Grid>
-      </Grid>
-      {!hasParticipant && (
+    <LoadScript libraries={LIBRARIES} googleMapsApiKey="AIzaSyDEq9i1TN3va9qFrydwl-0TfbpLmhb_FxQ">
+      <Container maxWidth="md" style={{ marginBottom: '20px' }}>
         <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid xs={12}>
-            <ParticipantForm room={room} participantId={participantId} />
+          <Grid item xs={12}>
+            <HeaderCard room={room} participantId={participantId} />
           </Grid>
         </Grid>
-      )}
-      <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid xs={12}>
-          <MapCard room={room} />
+        {!hasParticipant && (
+          <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+            <Grid item xs={12}>
+              <ParticipantForm room={room} participantId={participantId} setSelectedOrigin={setSelectedOrigin} />
+            </Grid>
+          </Grid>
+        )}
+        <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid item xs={12}>
+            <MapCard room={room} participantOrigin={participantOrigin} />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </LoadScript>
   );
 };
 
