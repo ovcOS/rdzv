@@ -9,6 +9,7 @@ import { Map } from '@/components/Map';
 import { useEffect, useState } from 'react';
 import { getParticipantId } from '@/lib/web';
 import ShareIcon from '@mui/icons-material/Share';
+import { joinRoom } from '@/lib/api-client';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const roomSlug = context.params?.slug as string;
@@ -50,7 +51,7 @@ const DetailsCard = ({ room, participantId }: { room: RoomProps; participantId: 
       </Typography>
       Participants
       {room.participants.map((v, index) => {
-        const isParticipant = v._id === participantId;
+        const isParticipant = v.id === participantId;
         return (
           <Typography key={index} variant="body2" color="text.secondary">
             {v.name} - {JSON.stringify(v.location)} {isParticipant ? '<-' : ''}
@@ -61,7 +62,7 @@ const DetailsCard = ({ room, participantId }: { room: RoomProps; participantId: 
   </Card>
 );
 
-const TakePartCard = ({ room }: { room: RoomProps }) => {
+const TakePartCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => {
   const [name, setName] = useState('');
   const disabled = !name || name.length <= 3;
   return (
@@ -73,7 +74,15 @@ const TakePartCard = ({ room }: { room: RoomProps }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="medium" disabled={disabled} onClick={() => console.log('add participant', { name })}>
+        <Button
+          size="medium"
+          disabled={disabled}
+          onClick={async () => {
+            const participant = { id: participantId, name, location: { lat: 1.234, lng: 2.345 } };
+            await joinRoom({ slug: room.slug, participant });
+            window.location.reload();
+          }}
+        >
           Take part
         </Button>
       </CardActions>
@@ -90,7 +99,7 @@ const Room = ({ room }: { room: RoomProps }) => {
 
   if (!room) return null;
 
-  const hasParticipant = room.participants.find((v) => v._id === participantId);
+  const hasParticipant = room.participants.find((v) => v.id === participantId);
 
   return (
     <>
@@ -114,7 +123,7 @@ const Room = ({ room }: { room: RoomProps }) => {
         </Grid>
         <Grid xs={6}>
           <DetailsCard room={room} participantId={participantId} />
-          {!hasParticipant && <TakePartCard room={room} />}
+          {!hasParticipant && <TakePartCard room={room} participantId={participantId} />}
         </Grid>
       </Grid>
     </>

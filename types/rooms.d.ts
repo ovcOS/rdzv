@@ -17,7 +17,7 @@ declare type LocationProps = {
 };
 
 declare type ParticipantProps = {
-  _id: Id;
+  id: Id;
   name: string;
   location: LocationProps;
   route?: ParticipantRouteProps;
