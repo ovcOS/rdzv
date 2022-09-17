@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  GoogleMap,
-  LoadScript,
-  DirectionsService,
-  DirectionsRenderer,
-  Autocomplete,
-  Marker,
-} from '@react-google-maps/api';
+import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer, Autocomplete } from '@react-google-maps/api';
 import { Button, TextField, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import {
@@ -23,6 +16,7 @@ import {
   AutocompleteProps,
   DEFAULT_POSITION,
   directionsServiceCallback,
+  mapStyles,
 } from './lib';
 
 export const Map = React.memo(
@@ -72,7 +66,13 @@ export const Map = React.memo(
         >
           <TextField placeholder="Type a location" style={{ marginTop: '20px', marginBottom: '30px' }} />
         </Autocomplete>
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={ZOOM}>
+        <GoogleMap
+          options={{ styles: mapStyles }}
+          clickableIcons
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={ZOOM}
+        >
           {!!(origin && !directionsResult.length) &&
             originsToFinalDestination.map(({ origin, destination }, i) => (
               <DirectionsService
@@ -85,7 +85,6 @@ export const Map = React.memo(
             directionsResult.map((directions, i) => (
               <DirectionsRenderer key={`directions-renderer-${i}`} options={{ directions }} />
             ))}
-          {existingMeetingLocation && <Marker position={existingMeetingLocation}>hi</Marker>}
         </GoogleMap>
       </LoadScript>
     );
