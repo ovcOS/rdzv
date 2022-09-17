@@ -26,7 +26,7 @@ const stringAvatar = (name: string) => {
   const nameSplits = name.split(' ');
   const isOneStringName = nameSplits.length === 1;
   const firstInitial = name.split(' ')[0][0];
-  const secondInitial = isOneStringName ? undefined : name.split(' ')[1];
+  const secondInitial = isOneStringName ? undefined : name.split(' ')[1][0];
   const initials = isOneStringName ? firstInitial : `${firstInitial}${secondInitial}`;
   return {
     sx: {
