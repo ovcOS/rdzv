@@ -40,7 +40,7 @@ const MapCard = () => (
 );
 
 const DetailsCard = ({ room }: { room: RoomProps }) => (
-  <Card>
+  <Card style={{ marginTop: '150px' }}>
     <CardContent>
       <Typography gutterBottom variant="h5" component="div">
         {room.name}
