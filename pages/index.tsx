@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
+import { createRoom } from '@/lib/api-client';
 
 type Status = 'new' | 'existing';
 
@@ -27,7 +28,7 @@ const NewRoomSettings = () => {
   const hasRoomName = !!roomName;
   return (
     <>
-      <Button variant="outlined" onClick={() => undefined} disabled={!hasRoomName}>
+      <Button variant="outlined" onClick={async () => await createRoom(roomName)} disabled={!hasRoomName}>
         Continue
       </Button>
     </>

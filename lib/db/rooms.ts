@@ -7,9 +7,9 @@ const getRoomsCollection = async (): Promise<Collection<RoomProps>> => {
   return client.db(DB_NAME).collection<RoomProps>(COLLECTIONS.ROOMS);
 };
 
-export const loadRoom = async (name: string): Promise<RoomProps | null> => {
+export const loadRoom = async (slug: string): Promise<RoomProps | null> => {
   const collection = await getRoomsCollection();
-  const room = await collection.findOne({ name });
+  const room = await collection.findOne({ slug });
   return room;
 };
 
