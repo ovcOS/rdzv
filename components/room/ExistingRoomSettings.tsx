@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -26,10 +25,10 @@ const handleEnterExistingRoom = async ({
 
 export const ExistingRoomSettings = ({ goBack }: { goBack: () => void }) => {
   const [slug, setSlug] = useState('');
-  const hasSlug = !!slug;
-  const router = useRouter();
-
   const [isSlugValid, setIsSlugValid] = useState<boolean>(true);
+
+  const disabled = !slug || !isSlugValid;
+  const router = useRouter();
 
   return (
     <>
@@ -52,7 +51,7 @@ export const ExistingRoomSettings = ({ goBack }: { goBack: () => void }) => {
         <Button
           size="large"
           variant="outlined"
-          disabled={!hasSlug || !isSlugValid}
+          disabled={disabled}
           onClick={async () => {
             await handleEnterExistingRoom({ setIsSlugValid, slug, router });
           }}
