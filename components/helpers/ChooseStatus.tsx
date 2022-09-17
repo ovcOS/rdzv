@@ -3,12 +3,12 @@ import Grid from '@mui/material/Grid';
 
 export const ChooseStatus = ({ setStatus }: { setStatus: (arg: Status) => void }) => (
   <>
-    <Grid item xs={6} style={{ textAlign: 'center' }}>
+    <Grid item xs={12} lg={6} style={{ textAlign: 'center', marginTop: '10px' }}>
       <Button variant="outlined" onClick={() => setStatus('new')}>
         Create new room
       </Button>
     </Grid>
-    <Grid item xs={6} style={{ textAlign: 'center' }}>
+    <Grid item xs={12} lg={6} style={{ textAlign: 'center', marginTop: '10px' }}>
       <Button variant="outlined" onClick={() => setStatus('existing')}>
         Enter a room
       </Button>

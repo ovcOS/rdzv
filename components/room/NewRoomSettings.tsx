@@ -15,7 +15,7 @@ export const NewRoomSettings = () => {
       <Grid item xs={7} style={{ textAlign: 'center' }}>
         <TextField
           id="newRoomName"
-          label="Enter your room name"
+          helperText="Enter your room name"
           variant="standard"
           focused
           onChange={(input) => setRoomName(input.target.value)}

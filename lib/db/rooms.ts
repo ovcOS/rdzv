@@ -23,3 +23,10 @@ export const insertRoom = async (room: RoomProps): Promise<void> => {
   const collection = await getRoomsCollection();
   collection.insertOne(room);
 };
+
+export const updateRoom = async (room: RoomProps): Promise<void> => {
+  const collection = await getRoomsCollection();
+  console.log('updateRoom', { room, participants: room.participants });
+  const { _id, ...newRoom } = room;
+  collection.updateOne({ _id: room._id }, { $set: newRoom });
+};

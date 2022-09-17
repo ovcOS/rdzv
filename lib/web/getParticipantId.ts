@@ -1,4 +1,4 @@
-const PARTICIPANT_KEY = `RDZV_PARTIPIANT_ID`;
+const PARTICIPANT_KEY = `RDZV_PARTICIPANT_ID`;
 
 const newId = () => 'testParticipantId123';
 
