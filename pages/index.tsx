@@ -4,8 +4,6 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 const Home: NextPage = () => {
   return (
