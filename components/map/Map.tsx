@@ -11,6 +11,7 @@ import {
   directionsServiceCallback,
   mapStyles,
   SetState,
+  OriginToFinalDestination,
 } from './lib';
 
 export const Map = React.memo(
@@ -30,16 +31,22 @@ export const Map = React.memo(
     const [center, setCenter] = useState(DEFAULT_POSITION);
     const [travelMode] = useState('TRANSIT' as TravelMode);
     const [directionsResult, setDirectionsResult] = useState([] as DirectionsResult[]);
+    const [originsToFinalDestination, setOriginsToFinalDestination] = useState([] as OriginToFinalDestination[]);
 
     useEffect(() => {
       setInitialMapCenter(setCenter, existingMeetingLocation);
     }, [existingMeetingLocation]);
-
-    const originsToFinalDestination = useMemo(
-      () =>
-        mapOriginsToFinalDestination({ existingOrigins, participantOrigin, newMeetingLocation, setNewMeetingLocation }),
-      [existingOrigins, participantOrigin, newMeetingLocation]
-    );
+    useEffect(() => {
+      setOriginsToFinalDestination(
+        mapOriginsToFinalDestination({
+          existingOrigins,
+          participantOrigin,
+          newMeetingLocation,
+          setNewMeetingLocation,
+        })
+      );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [existingOrigins, participantOrigin, newMeetingLocation]);
 
     return (
       <>

@@ -1,4 +1,4 @@
-import { SetState } from './types';
+import { OriginToFinalDestination, SetState } from './types';
 
 export const mapOriginsToFinalDestination = ({
   existingOrigins,
@@ -10,7 +10,7 @@ export const mapOriginsToFinalDestination = ({
   participantOrigin: LocationProps | null;
   newMeetingLocation: LocationProps | undefined;
   setNewMeetingLocation: SetState<LocationProps | undefined>;
-}): { origin: LocationProps; destination: LocationProps }[] => {
+}): OriginToFinalDestination[] => {
   const allOrigins = [...existingOrigins, ...(participantOrigin ? [participantOrigin] : [])];
   const meetingLocation = allOrigins.reduce(
     (res, location, index, original) => {
