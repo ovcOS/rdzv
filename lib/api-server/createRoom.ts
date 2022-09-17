@@ -15,7 +15,8 @@ const getDefaults = () => ({
 export const createRoom = async (name: string) => {
   const slug = getSlug(name);
   const existingRoom = await loadRoom(slug);
-  const revisedSlug = existingRoom ? `${slug}0` : slug;
+  const randomNumber = Math.floor(Math.random() * 9999);
+  const revisedSlug = existingRoom ? `${slug}#${randomNumber}` : slug;
 
   const newRoom: RoomProps = {
     ...getDefaults(),
