@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Home: NextPage = () => {
   return (
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
         </h1>
         <Button variant="contained">Get started</Button>
         <Switch defaultChecked />
+        <DeleteIcon />
       </main>
     </div>
   );
