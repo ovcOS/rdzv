@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <h1 className={styles.title}>
         welcome to <code>rdzv</code> 🤓
       </h1>
-      <Grid container xs={4} style={{ marginTop: '20px' }}>
+      <Grid container xs={12} sm={6} lg={4} style={{ marginTop: '20px' }}>
         {!isStatusKnown && <ChooseStatus setStatus={setStatus} />}
         {isNewRoom && <NewRoomSettings />}
         {isExistingRoom && <ExistingRoomSettings />}
