@@ -1,4 +1,3 @@
-import { Collection } from "mongodb";
 import clientPromise from "./mongodb";
 
 if (!process.env.DB_NAME) {
