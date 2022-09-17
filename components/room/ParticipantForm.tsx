@@ -50,13 +50,14 @@ export const ParticipantForm = ({
             </Typography>
           )}
         </div>
-        <Typography gutterBottom variant="h6" component="div" style={{ marginTop: '15px', marginBottom: '-5px' }}>
+        <Typography gutterBottom variant="h6" component="div" style={{ marginTop: '25px', marginBottom: '-5px' }}>
           What’s your name?
         </Typography>
         <TextField
           id="name-input"
-          label="Type it here..."
+          placeholder="Type it here..."
           variant="standard"
+          style={{ marginTop: '10px' }}
           onChange={(v) => setName(v.target.value)}
         />
         <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', marginTop: '15px' }}>
