@@ -7,7 +7,7 @@ import {
   Autocomplete,
   Marker,
 } from '@react-google-maps/api';
-import { Button } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import {
   autoCompleteStyle,
@@ -37,7 +37,7 @@ export const Map = React.memo(
     const [origin, setSelectedOrigin] = useState(null as LocationProps | null);
     const [autocomplete, setAutocomplete] = useState(null as AutocompleteProps | null);
     // for now only using transit as travel mode
-    const [travelMode, setTravelMode] = useState('TRANSIT' as TransportationMode);
+    const [travelMode, setTravelMode] = useState('TRANSIT' as TravelMode);
     const [directionsResult, setDirectionsResult] = useState([] as DirectionsResult[]);
 
     useEffect(() => {
@@ -59,21 +59,19 @@ export const Map = React.memo(
             <h4>So far, the most optimal meeting point for your group is {existingMeetingLocation.lat}</h4>
           </>
         )}
-        <div className="d-flex flex-column" style={{ minHeight: '140px' }}>
-          <div>Where are you coming from?</div>
-          <div className="d-flex">
-            <Button color="primary" onClick={() => setCurrentLocationAsOrigin(setSelectedOrigin)}>
-              Current location
-            </Button>
-            or
-            <Autocomplete
-              onLoad={(instance) => onAutocompleteLoad(instance, setAutocomplete)}
-              onPlaceChanged={() => onAutocompletePlaceChanged(autocomplete, setSelectedOrigin)}
-            >
-              <input type="text" placeholder="Type a location" style={autoCompleteStyle} />
-            </Autocomplete>
-          </div>
-        </div>
+        <Typography gutterBottom variant="h5" component="div">
+          Where are you coming from?
+        </Typography>
+        <Button color="primary" onClick={() => setCurrentLocationAsOrigin(setSelectedOrigin)}>
+          Current location
+        </Button>
+        or
+        <Autocomplete
+          onLoad={(instance) => onAutocompleteLoad(instance, setAutocomplete)}
+          onPlaceChanged={() => onAutocompletePlaceChanged(autocomplete, setSelectedOrigin)}
+        >
+          <TextField placeholder="Type a location" style={{ marginTop: '20px', marginBottom: '30px' }} />
+        </Autocomplete>
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={ZOOM}>
           {!!(origin && !directionsResult.length) &&
             originsToFinalDestination.map(({ origin, destination }, i) => (

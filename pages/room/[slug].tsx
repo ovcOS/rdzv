@@ -3,7 +3,7 @@ import { loadRoom, loadRooms } from '@/lib/db';
 import { GetStaticProps } from 'next';
 import Grid from '@mui/material/Grid';
 import { Button, Card, CardActions, CardContent, Container, Paper, TextField, Typography } from '@mui/material';
-import { Map } from '@/components/Map';
+import { Map } from '@/components';
 import { useEffect, useState } from 'react';
 import { getParticipantId } from '@/lib/web';
 import { joinRoom } from '@/lib/api-client';
@@ -26,19 +26,21 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-const MapCard = () => (
-  <Card>
-    <CardContent>
-      <Typography gutterBottom variant="h5" component="div">
-        Lets meet
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        What is your current location?
-      </Typography>
-      <Map />
-    </CardContent>
-  </Card>
-);
+const MapCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => {
+  const existingOrigins = room.participants.map((v) => v.location);
+  const hasParticipant = room.participants.find((v) => v.id === participantId);
+  return (
+    <Card>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Lets meet
+        </Typography>
+        {!hasParticipant && <TakePartContent room={room} participantId={participantId} />}
+        <Map existingOrigins={existingOrigins} />
+      </CardContent>
+    </Card>
+  );
+};
 
 const DetailsCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => (
   <Card style={{ marginTop: '150px' }}>
@@ -59,31 +61,27 @@ const DetailsCard = ({ room, participantId }: { room: RoomProps; participantId: 
   </Card>
 );
 
-const TakePartCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => {
+const TakePartContent = ({ room, participantId }: { room: RoomProps; participantId: Id }) => {
   const [name, setName] = useState('');
   const disabled = !name || name.length <= 3;
   return (
-    <Card style={{ marginTop: '50px' }}>
-      <CardContent>
-        <TextField id="standard-basic" label="Name" variant="standard" onChange={(v) => setName(v.target.value)} />
-        <Typography variant="body2" gutterBottom style={{ marginTop: '10px' }}>
-          Location: Zürich, Switzerland (detected)
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          size="medium"
-          disabled={disabled}
-          onClick={async () => {
-            const participant = { id: participantId, name, location: { lat: 1.234, lng: 2.345 } };
-            await joinRoom({ slug: room.slug, participant });
-            window.location.reload();
-          }}
-        >
-          Take part
-        </Button>
-      </CardActions>
-    </Card>
+    <>
+      <TextField id="standard-basic" label="Name" variant="standard" onChange={(v) => setName(v.target.value)} />
+      <Typography variant="body2" gutterBottom style={{ marginTop: '10px' }}>
+        Location: Zürich, Switzerland (detected)
+      </Typography>
+      <Button
+        size="medium"
+        disabled={disabled}
+        onClick={async () => {
+          const participant = { id: participantId, name, location: { lat: 1.234, lng: 2.345 } };
+          await joinRoom({ slug: room.slug, participant });
+          window.location.reload();
+        }}
+      >
+        Take part
+      </Button>
+    </>
   );
 };
 
@@ -96,18 +94,15 @@ const Room = ({ room }: { room: RoomProps }) => {
 
   if (!room) return null;
 
-  const hasParticipant = room.participants.find((v) => v.id === participantId);
-
   return (
     <Container maxWidth="md">
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid xs={12}></Grid>
         <Grid xs={6}>
-          <MapCard />
+          <MapCard room={room} participantId={participantId} />
         </Grid>
         <Grid xs={6}>
           <DetailsCard room={room} participantId={participantId} />
-          {!hasParticipant && <TakePartCard room={room} participantId={participantId} />}
         </Grid>
       </Grid>
     </Container>
