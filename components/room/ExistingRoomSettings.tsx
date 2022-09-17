@@ -35,8 +35,11 @@ export const ExistingRoomSettings = ({ goBack }: { goBack: () => void }) => {
     <>
       <Grid item xs={7} style={{ textAlign: 'center' }}>
         <TextField
+          error={!isSlugValid}
+          size="medium"
           id="standard-basic"
-          helperText="Enter your meetup code"
+          placeholder="example-code"
+          helperText={!isSlugValid ? 'The room code you entered is invalid. 🥲' : 'Enter your meetup code'}
           variant="standard"
           focused
           onChange={(input) => {
@@ -47,7 +50,8 @@ export const ExistingRoomSettings = ({ goBack }: { goBack: () => void }) => {
       </Grid>
       <Grid item xs={5} style={{ textAlign: 'center' }}>
         <Button
-          variant={'outlined'}
+          size="large"
+          variant="outlined"
           disabled={!hasSlug || !isSlugValid}
           onClick={async () => {
             await handleEnterExistingRoom({ setIsSlugValid, slug, router });
@@ -60,13 +64,6 @@ export const ExistingRoomSettings = ({ goBack }: { goBack: () => void }) => {
           Back
         </Link>
       </Grid>
-      {!isSlugValid && (
-        <Grid item xs={12} style={{ textAlign: 'center', marginTop: '20px' }}>
-          <Box component="small" sx={{ display: 'inline', color: 'red' }}>
-            The room code you entered is invalid. 🥲
-          </Box>
-        </Grid>
-      )}
     </>
   );
 };

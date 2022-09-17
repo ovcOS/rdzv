@@ -15,6 +15,7 @@ export const NewRoomSettings = ({ goBack }: { goBack: () => void }) => {
     <>
       <Grid item xs={7} style={{ textAlign: 'center' }}>
         <TextField
+          size="medium"
           id="newRoomName"
           helperText="Enter your meetup name"
           variant="standard"
@@ -24,6 +25,7 @@ export const NewRoomSettings = ({ goBack }: { goBack: () => void }) => {
       </Grid>
       <Grid item xs={5} style={{ textAlign: 'center' }}>
         <Button
+          size="large"
           variant="outlined"
           onClick={async () => {
             const room = await createRoom(roomName);
