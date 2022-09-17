@@ -23,6 +23,7 @@ export async function getStaticPaths() {
 }
 
 const Room = ({ room }: { room: RoomProps }) => {
+  if (!room) return null;
   return (
     <>
       {room._id}
