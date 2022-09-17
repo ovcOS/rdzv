@@ -1,6 +1,25 @@
 {
-    "_id": {
-      "$oid": "63258aafab33dd047ab796d4"
+  "_id": {
+    "$oid": "6325ddd813592b16528b49c0"
+  },
+  "name": "Hack Zurich Drinks",
+  "slug": "hack-zurich-drinks",
+  "participants": [
+    {
+      "name": "Jane Doe",
+      "location": {
+        "lat": 47.5595986,
+        "lng": 7.5885761
+      }
     },
-    "name": "testRoom"
+    {
+      "name": "John Sprinsten",
+      "location": {
+        "lat": 45.4642035,
+        "lng": 9.189982
+      }
+    }
+  ],
+  "transportationMode": "TRANSIT",
+  "location": null
 }
