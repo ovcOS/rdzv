@@ -8,6 +8,7 @@ export const post = async (endpoint: string, data: any) => {
     body,
   };
   const response = await fetch(endpoint, options);
-  const result = await response.json();
+  console.log({ response });
+  const result = response.json();
   return result;
 };

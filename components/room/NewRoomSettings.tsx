@@ -19,7 +19,14 @@ export const NewRoomSettings = () => {
         />
       </Grid>
       <Grid item xs={5} style={{ textAlign: 'center' }}>
-        <Button variant="outlined" onClick={() => createRoom(roomName)} disabled={!hasRoomName}>
+        <Button
+          variant="outlined"
+          onClick={async () => {
+            const room = await createRoom(roomName);
+            console.log({ room });
+          }}
+          disabled={!hasRoomName}
+        >
           Continue
         </Button>
       </Grid>

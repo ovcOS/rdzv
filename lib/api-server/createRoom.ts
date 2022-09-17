@@ -15,12 +15,13 @@ const getDefaults = () => ({
 export const createRoom = async (name: string) => {
   const slug = getSlug(name);
   const existingRoom = await loadRoom(slug);
-  if (existingRoom) return;
+  const revisedSlug = existingRoom ? `${slug}0` : slug;
 
   const newRoom: RoomProps = {
     ...getDefaults(),
     name,
-    slug: getSlug(name),
+    slug: revisedSlug,
   };
   await insertRoom(newRoom);
+  return newRoom;
 };
