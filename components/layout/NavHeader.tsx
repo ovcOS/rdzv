@@ -19,11 +19,11 @@ export default function NavHeader() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <Link href="/">
+          <Link href="/">
+            <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
               <HomeIcon color="inherit" aria-label="home" sx={{ mr: 2 }} style={{ margin: '15px' }} />
-            </Link>
-          </IconButton>
+            </IconButton>
+          </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Rendezvous
           </Typography>
