@@ -15,6 +15,7 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <audio autoPlay={true} src="/assets/media/t-rex-roar.mp3"></audio>
       <Typography variant="h5" component="div">
         Hit the road to meet your <code>friends</code> 🤓
       </Typography>
