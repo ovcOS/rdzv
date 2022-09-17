@@ -1,27 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import { ExistingRoomSettings, NewRoomSettings } from '@/components';
-
-type Status = 'new' | 'existing';
-
-const ChooseStatus = ({ setStatus }: { setStatus: (arg: Status) => void }) => (
-  <>
-    <Grid item xs={6} style={{ textAlign: 'center' }}>
-      <Button variant="outlined" onClick={() => setStatus('new')}>
-        Create new room
-      </Button>
-    </Grid>
-    <Grid item xs={6} style={{ textAlign: 'center' }}>
-      <Button variant="outlined" onClick={() => setStatus('existing')}>
-        Enter a room
-      </Button>
-    </Grid>
-  </>
-);
+import { ChooseStatus } from '@/components';
 
 const Home: NextPage = () => {
   const [status, setStatus] = useState<Status | undefined>(undefined);
