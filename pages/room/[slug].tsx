@@ -6,8 +6,7 @@ import { Card, CardContent, Container } from '@mui/material';
 import { Map } from '@/components';
 import { useEffect, useState } from 'react';
 import { getParticipantId } from '@/lib/web';
-import { HeaderCard } from './HeaderCard';
-import { ParticipantForm } from './ParticipantForm';
+import { HeaderCard, ParticipantForm } from '@/components/room';
 import { LoadScript } from '@react-google-maps/api';
 import { LIBRARIES } from '@/components/map/lib';
 
