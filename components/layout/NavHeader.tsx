@@ -8,8 +8,13 @@ import HomeIcon from '@mui/icons-material/Home';
 import ShareIcon from '@mui/icons-material/Share';
 import Link from 'next/link';
 import { Button } from '@mui/material';
+import { useState } from 'react';
+import { Notification } from '../helpers';
 
 export default function NavHeader() {
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -26,10 +31,12 @@ export default function NavHeader() {
             color="inherit"
             onClick={async () => {
               navigator.clipboard.writeText(window.location.href);
+              setOpen(true);
             }}
           >
             <ShareIcon color="inherit" aria-label="share" sx={{ mr: 2 }} style={{ margin: '15px' }} />
           </Button>
+          <Notification open={open} handleClose={handleClose} message={'Link copied to clipboard 🥳'} />
         </Toolbar>
       </AppBar>
     </Box>
