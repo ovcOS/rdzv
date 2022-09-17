@@ -1,5 +1,5 @@
 import { post } from './helpers';
 
 export const createRoom = async (name: string) => {
-  await post('/api/createRoom', { name });
+  return await post('/api/createRoom', { name });
 };
