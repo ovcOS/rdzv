@@ -7,7 +7,7 @@ export const updateRoom = async ({
 }: {
   slug: string;
   participant: ParticipantProps;
-  meetingLocation?: LocationProps;
+  meetingLocation: LocationProps;
 }) => {
   return await post('/api/updateRoom', { slug, participant, meetingLocation });
 };
