@@ -18,7 +18,7 @@ export const ExistingRoomSettings = () => {
         />
       </Grid>
       <Grid item xs={5} style={{ textAlign: 'center' }}>
-        <Button variant="outlined" onClick={() => undefined} disabled={!hasRoomCode}>
+        <Button variant="outlined" href={`room/${roomCode}`} disabled={!hasRoomCode}>
           Continue
         </Button>
       </Grid>
