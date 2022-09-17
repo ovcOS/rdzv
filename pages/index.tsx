@@ -4,8 +4,7 @@ import styles from '../styles/Home.module.css';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
-import { ExistingRoomSettings } from './ExistingRoomSettings';
-import { NewRoomSettings } from './NewRoomSettings';
+import { ExistingRoomSettings, NewRoomSettings } from '@/components';
 
 type Status = 'new' | 'existing';
 
