@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import { ExistingRoomSettings, NewRoomSettings } from '@/components';
 import { ChooseStatus } from '@/components';
+import { Card, CardMedia } from '@mui/material';
+import Image from 'next/image';
 
 const Home: NextPage = () => {
   const [status, setStatus] = useState<HomePageStatus>('home');
@@ -14,6 +16,7 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Image height="140" width="140" src="/assets/images/coffee_with_friends.svg" alt="meet friends" />
       <h1 className={styles.title}>
         welcome to <code>rdzv</code> 🤓
       </h1>
