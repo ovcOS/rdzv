@@ -5,6 +5,6 @@ type Data = RoomProps | null;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   const { name } = req.body;
-  await createRoom(name);
-  res.status(200);
+  const room = await createRoom(name);
+  res.status(200).json(room);
 }
