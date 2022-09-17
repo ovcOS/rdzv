@@ -39,38 +39,33 @@ const stringAvatar = (name: string) => {
   };
 };
 
-const getAddressFromLocation = async ({
-  location,
-  geocoder,
-}: {
-  location: LocationProps;
-  geocoder: google.maps.Geocoder;
-}) =>
-  geocoder.geocode({ location }).then((response) => {
-    if (response.results[0]) {
-      return response.results[0].formatted_address;
-    } else {
-      return undefined;
-    }
-  });
+const loadAddress = async (geocoder: google.maps.Geocoder, v: ParticipantProps) => {
+  try {
+    const response = await geocoder.geocode({ location: v.location });
+    const address = response.results[0].formatted_address;
+    return address;
+  } catch (err) {
+    return undefined;
+  }
+};
 
 export const HeaderCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => {
   const geocoder = new google.maps.Geocoder();
   const [participants, setParticipants] = useState([] as ParticipantWithAddressProps[]);
+  const i = 0;
 
   useEffect(() => {
     const reviseParticipants = async () => {
       const revisedParticipants = await Promise.all(
         room.participants.map(async (v) => {
-          const response = await geocoder.geocode({ location: v.location });
-          const address = response.results[0].formatted_address;
+          const address = await loadAddress(geocoder, v);
           return { ...v, address } as ParticipantWithAddressProps;
         })
       );
       setParticipants(revisedParticipants);
     };
     reviseParticipants();
-  }, [participants, geocoder]);
+  }, [room.participants]);
 
   return (
     <Card>
