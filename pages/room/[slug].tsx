@@ -8,6 +8,7 @@ import { Button, Card, CardActions, CardContent, TextField, Typography } from '@
 import { Map } from '@/components/Map';
 import { useEffect, useState } from 'react';
 import { getParticipantId } from '@/lib/web';
+import ShareIcon from '@mui/icons-material/Share';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const roomSlug = context.params?.slug as string;
@@ -96,8 +97,17 @@ const Room = ({ room }: { room: RoomProps }) => {
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid xs={12}>
           <Link href="/">
-            <HomeIcon color="inherit" aria-label="menu" sx={{ mr: 2 }} style={{ margin: '15px' }} />
+            <HomeIcon color="inherit" aria-label="home" sx={{ mr: 2 }} style={{ margin: '15px' }} />
           </Link>
+          <ShareIcon
+            color="inherit"
+            aria-label="share"
+            sx={{ mr: 2 }}
+            style={{ margin: '15px' }}
+            onClick={async () => {
+              navigator.clipboard.writeText(window.location.href);
+            }}
+          />
         </Grid>
         <Grid xs={6}>
           <MapCard />
