@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { ExistingRoomSettings, NewRoomSettings } from '@/components';
 import { ChooseStatus } from '@/components';
 import Image from 'next/image';
+import { Typography } from '@mui/material';
 
 const Home: NextPage = () => {
   const [status, setStatus] = useState<HomePageStatus>('home');
@@ -15,9 +16,9 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <h1 className={styles.title}>
-        welcome to <code>rdzv</code> 🤓
-      </h1>
+      <Typography variant="h5" component="div">
+        Hit the road to meet your <code>friends</code> 🤓
+      </Typography>
       <Image height="200" width="590" src="/assets/images/dino_running.gif" alt="lets meet" />
       <Grid container xs={12} sm={6} lg={4} style={{ marginTop: '20px' }}>
         {isHome && <ChooseStatus setStatus={setStatus} />}
