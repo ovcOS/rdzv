@@ -4,7 +4,8 @@ import styles from '../styles/Home.module.css';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
-import { createRoom } from '@/lib/api-client';
+import { ExistingRoomSettings } from './ExistingRoomSettings';
+import { NewRoomSettings } from './NewRoomSettings';
 
 type Status = 'new' | 'existing';
 
@@ -22,19 +23,6 @@ const ChooseStatus = ({ setStatus }: { setStatus: (arg: Status) => void }) => (
     </Grid>
   </>
 );
-
-const NewRoomSettings = () => {
-  const roomName = 'testRoomNameXiaoLalala';
-  const hasRoomName = !!roomName;
-  return (
-    <>
-      <Button variant="outlined" onClick={async () => await createRoom(roomName)} disabled={!hasRoomName}>
-        Continue
-      </Button>
-    </>
-  );
-};
-const ExistingRoomSettings = () => <div>existing room fields</div>;
 
 const Home: NextPage = () => {
   const [status, setStatus] = useState<Status | undefined>(undefined);
