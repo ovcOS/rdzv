@@ -1,14 +1,5 @@
 import clientPromise from './mongodb';
-
-if (!process.env.DB_NAME) {
-  throw new Error('Please add your Mongo DB_NAME to .env.local');
-}
-
-const DB_NAME = process.env.DB_NAME as string;
-
-const COLLECTIONS = Object.freeze({
-  ROOMS: 'rooms',
-});
+import { DB_NAME, COLLECTIONS } from './db';
 
 export const getRoom = async (name: string): Promise<RoomProps | null> => {
   const client = await clientPromise;
