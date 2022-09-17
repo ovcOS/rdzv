@@ -5,6 +5,11 @@ const existingOriginsTest = [
   { lat: 45.4642035, lng: 9.189982 }, // milano
 ];
 
-const MapPage = () => <Map existingOrigins={existingOriginsTest} />;
+const existingMeetingLocation = {
+  lat: 46.511901050000006,
+  lng: 8.38927905,
+};
+
+const MapPage = () => <Map existingMeetingLocation={existingMeetingLocation} existingOrigins={existingOriginsTest} />;
 
 export default MapPage;

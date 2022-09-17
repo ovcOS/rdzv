@@ -1,3 +1,3 @@
 export * from './room';
 export * from './helpers';
-export * from './Map';
+export * from './map';
