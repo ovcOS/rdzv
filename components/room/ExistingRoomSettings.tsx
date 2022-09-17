@@ -35,7 +35,7 @@ export const ExistingRoomSettings = () => {
       <Grid item xs={7} style={{ textAlign: 'center' }}>
         <TextField
           id="standard-basic"
-          label="Enter your room code"
+          helperText="Enter your room code"
           variant="standard"
           focused
           onChange={(input) => {
