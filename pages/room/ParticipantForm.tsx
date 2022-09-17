@@ -9,19 +9,22 @@ import {
   setCurrentLocationAsOrigin,
   SetState,
 } from '@/components/map/lib';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 export const ParticipantForm = ({
   room,
   participantId,
+  origin,
   setSelectedOrigin,
 }: {
   room: RoomProps;
   participantId: Id;
+  origin: LocationProps | null;
   setSelectedOrigin: SetState<LocationProps | null>;
 }) => {
   const [name, setName] = useState('');
   const [autocomplete, setAutocomplete] = useState(null as AutocompleteProps | null);
-  const disabled = !name || name.length <= 3;
+  const disabled = !name || name.length <= 3 || !origin;
   return (
     <Card style={{ marginTop: '10px' }}>
       <CardContent>
@@ -41,9 +44,11 @@ export const ParticipantForm = ({
               <TextField id="location-input" variant="standard" />
             </Autocomplete>
           </div>
-          <Typography variant="body2" gutterBottom style={{ marginRight: '10px' }}>
-            Location: Zürich, Switzerland (detected)
-          </Typography>
+          {!!origin && (
+            <Typography variant="body2" gutterBottom style={{ marginRight: '10px' }}>
+              <LocationOnIcon /> {origin.lat} {origin.lng} (detected)
+            </Typography>
+          )}
         </div>
         <Typography gutterBottom variant="h6" component="div" style={{ marginTop: '15px', marginBottom: '-5px' }}>
           What’s your name?
@@ -60,7 +65,8 @@ export const ParticipantForm = ({
             variant="contained"
             disabled={disabled}
             onClick={async () => {
-              const participant = { id: participantId, name, location: { lat: 1.234, lng: 2.345 } };
+              if (!origin) return;
+              const participant = { id: participantId, name, location: origin };
               await joinRoom({ slug: room.slug, participant });
               window.location.reload();
             }}

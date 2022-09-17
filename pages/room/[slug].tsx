@@ -63,7 +63,12 @@ const Room = ({ room }: { room: RoomProps }) => {
         {!hasParticipant && (
           <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={12}>
-              <ParticipantForm room={room} participantId={participantId} setSelectedOrigin={setSelectedOrigin} />
+              <ParticipantForm
+                room={room}
+                participantId={participantId}
+                origin={participantOrigin}
+                setSelectedOrigin={setSelectedOrigin}
+              />
             </Grid>
           </Grid>
         )}
