@@ -1,6 +1,8 @@
+import { getRandomNumber } from '../utils';
+
 const PARTICIPANT_KEY = `RDZV_PARTICIPANT_ID`;
 
-const newId = () => 'testParticipantId123';
+const newId = (): string => `participant-${getRandomNumber()}`;
 
 export const getParticipantId = () => {
   if (typeof window === 'undefined') return newId();

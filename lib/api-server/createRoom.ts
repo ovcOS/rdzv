@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { insertRoom, loadRoom } from '../db';
+import { getRandomNumber } from '../utils';
 import { TravelMode } from './constants';
 import { getSlug } from './helpers';
 
@@ -15,8 +16,8 @@ const getDefaults = () => ({
 export const createRoom = async (name: string): Promise<RoomProps> => {
   const slug = getSlug(name);
   const existingRoom = await loadRoom(slug);
-  const randomNumber = Math.floor(Math.random() * 9999);
-  const revisedSlug = existingRoom ? `${slug}-${randomNumber}` : slug;
+
+  const revisedSlug = existingRoom ? `${slug}-${getRandomNumber()}` : slug;
 
   const newRoom: RoomProps = {
     ...getDefaults(),
