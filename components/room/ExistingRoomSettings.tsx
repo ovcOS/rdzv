@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import { NextRouter, useRouter } from 'next/router';
 import { useState } from 'react';
 import { hasRoom } from '@/lib/api-client';
+import Link from '@mui/material/Link';
 
 const handleEnterExistingRoom = async ({
   setIsSlugValid,
@@ -23,8 +24,8 @@ const handleEnterExistingRoom = async ({
   router.push(`room/${slug}`);
 };
 
-export const ExistingRoomSettings = () => {
-  const [slug, setSlug] = useState('testCode');
+export const ExistingRoomSettings = ({ goBack }: { goBack: () => void }) => {
+  const [slug, setSlug] = useState('');
   const hasSlug = !!slug;
   const router = useRouter();
 
@@ -35,7 +36,7 @@ export const ExistingRoomSettings = () => {
       <Grid item xs={7} style={{ textAlign: 'center' }}>
         <TextField
           id="standard-basic"
-          helperText="Enter your room code"
+          helperText="Enter your meeting code"
           variant="standard"
           focused
           onChange={(input) => {
@@ -53,7 +54,11 @@ export const ExistingRoomSettings = () => {
           }}
         >
           Continue
-        </Button>
+        </Button>{' '}
+        or{' '}
+        <Link component="button" variant="body2" onClick={() => goBack()}>
+          Back
+        </Link>
       </Grid>
       {!isSlugValid && (
         <Grid item xs={12} style={{ textAlign: 'center', marginTop: '20px' }}>

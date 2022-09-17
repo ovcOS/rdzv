@@ -2,13 +2,14 @@ import { createRoom } from '@/lib/api-client';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-export const NewRoomSettings = () => {
+export const NewRoomSettings = ({ goBack }: { goBack: () => void }) => {
   const router = useRouter();
 
-  const [roomName, setRoomName] = useState('testName');
+  const [roomName, setRoomName] = useState('');
   const hasRoomName = !!roomName;
   return (
     <>
@@ -32,7 +33,11 @@ export const NewRoomSettings = () => {
           disabled={!hasRoomName}
         >
           Continue
-        </Button>
+        </Button>{' '}
+        or{' '}
+        <Link component="button" variant="body2" onClick={() => goBack()}>
+          Back
+        </Link>
       </Grid>
     </>
   );

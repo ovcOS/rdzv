@@ -6,11 +6,11 @@ import { ExistingRoomSettings, NewRoomSettings } from '@/components';
 import { ChooseStatus } from '@/components';
 
 const Home: NextPage = () => {
-  const [status, setStatus] = useState<Status | undefined>(undefined);
+  const [status, setStatus] = useState<HomePageStatus>('home');
 
-  const isStatusKnown = !!status;
-  const isNewRoom = status === 'new';
-  const isExistingRoom = status === 'existing';
+  const isHome = status === 'home';
+  const isNewRoom = status === 'newRoom';
+  const isExistingRoom = status === 'existingRoom';
 
   return (
     <>
@@ -18,9 +18,9 @@ const Home: NextPage = () => {
         welcome to <code>rdzv</code> 🤓
       </h1>
       <Grid container xs={12} sm={6} lg={4} style={{ marginTop: '20px' }}>
-        {!isStatusKnown && <ChooseStatus setStatus={setStatus} />}
-        {isNewRoom && <NewRoomSettings />}
-        {isExistingRoom && <ExistingRoomSettings />}
+        {isHome && <ChooseStatus setStatus={setStatus} />}
+        {isNewRoom && <NewRoomSettings goBack={() => setStatus('home')} />}
+        {isExistingRoom && <ExistingRoomSettings goBack={() => setStatus('home')} />}
       </Grid>
     </>
   );
