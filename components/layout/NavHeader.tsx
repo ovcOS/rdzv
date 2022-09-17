@@ -25,7 +25,7 @@ export default function NavHeader() {
             </Link>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Randezvous
+            Rendezvous
           </Typography>
           <Button
             color="inherit"
