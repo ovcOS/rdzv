@@ -5,11 +5,11 @@ declare type RoomProps = {
   name: string;
   slug: string;
   participants: ParticipantProps[];
-  transportationMode: TransportationMode;
+  transportationMode: TravelMode;
   meetingLocation?: LocationProps;
 };
 
-declare type TransportationMode = google.maps.TravelMode;
+declare type TravelMode = google.maps.TravelMode;
 
 declare type LocationProps = {
   lat: number;

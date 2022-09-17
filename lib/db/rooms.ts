@@ -13,7 +13,7 @@ export const loadRooms = async (): Promise<RoomProps[]> => {
   return rooms;
 };
 
-export const loadRoom = async (slug: string): Promise<RoomProps> => {
+export const loadRoom = async (slug: string): Promise<RoomProps | null> => {
   const collection = await getRoomsCollection();
   const room = await collection.findOne({ slug });
   return room;

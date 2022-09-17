@@ -67,7 +67,7 @@ export const Map = React.memo(() => {
   const [destination, setSelectedDestination] = useState(null as Position | null);
   const [autocomplete, setAutocomplete] = useState(null as AutocompleteProps | null);
   // for now only using transit as travel mode
-  const [travelMode, setTravelMode] = useState('TRANSIT' as TransportationMode);
+  const [travelMode, setTravelMode] = useState('TRANSIT' as TravelMode);
   const [directionsResult, setDirectionsResult] = useState(null as DirectionsResult | null);
 
   useEffect(() => {

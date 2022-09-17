@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { insertRoom, loadRoom } from '../db';
-import { TransportationMode } from './constants';
+import { TravelMode } from './constants';
 import { getSlug } from './helpers';
 
 const getDefaults = () => ({
@@ -8,7 +8,7 @@ const getDefaults = () => ({
   name: '',
   slug: '',
   participants: [],
-  transportationMode: TransportationMode.Public,
+  transportationMode: TravelMode.TRANSIT,
   location: null,
 });
 
