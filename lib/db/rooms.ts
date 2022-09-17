@@ -1,4 +1,4 @@
-import clientPromise from './mongodb';
+import clientPromise from './client';
 import { DB_NAME, COLLECTIONS } from './db';
 
 export const getRoom = async (name: string): Promise<RoomProps | null> => {
