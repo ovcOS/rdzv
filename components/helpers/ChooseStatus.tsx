@@ -5,12 +5,12 @@ export const ChooseStatus = ({ setStatus }: { setStatus: (arg: HomePageStatus) =
   <>
     <Grid item xs={12} lg={6} style={{ textAlign: 'center', marginTop: '10px' }}>
       <Button variant="outlined" onClick={() => setStatus('newRoom')}>
-        Create new room
+        Create a meetup
       </Button>
     </Grid>
     <Grid item xs={12} lg={6} style={{ textAlign: 'center', marginTop: '10px' }}>
       <Button variant="outlined" onClick={() => setStatus('existingRoom')}>
-        Enter a room
+        Join a meetup
       </Button>
     </Grid>
   </>

@@ -36,7 +36,7 @@ export const ExistingRoomSettings = ({ goBack }: { goBack: () => void }) => {
       <Grid item xs={7} style={{ textAlign: 'center' }}>
         <TextField
           id="standard-basic"
-          helperText="Enter your meeting code"
+          helperText="Enter your meetup code"
           variant="standard"
           focused
           onChange={(input) => {
