@@ -3,26 +3,9 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
-// TODO: extract consts
-type Position = { lat: number; lng: number };
-const DEFAULT_POSITION = { lat: 1, lng: 1 };
-const RDZV = 'rdzv';
-
-const handleEnterExistingRoom = (roomCode: string, userName: string, position: Position) => {
-  const localStorageId = `${RDZV}_${roomCode}`;
-  const localStorageItem = localStorage.getItem(localStorageId);
-  if (!localStorageItem) localStorage.setItem(localStorageId, JSON.stringify({ userName, position }));
-
-  const localStorageContent = localStorageItem ? JSON.parse(localStorageItem) : undefined;
-  const { userName: lastUserName = '', position: lastPosition = DEFAULT_POSITION } = localStorageContent;
-  console.log({ roomCode, lastPosition, lastUserName });
-};
-
 export const ExistingRoomSettings = () => {
   const [roomCode, setRoomCode] = useState('testCode');
   const hasRoomCode = !!roomCode;
-  const userName = 'testUserName';
-  const position = DEFAULT_POSITION;
 
   return (
     <>
@@ -36,12 +19,7 @@ export const ExistingRoomSettings = () => {
         />
       </Grid>
       <Grid item xs={5} style={{ textAlign: 'center' }}>
-        <Button
-          variant="outlined"
-          href={`room/${roomCode}`}
-          disabled={!hasRoomCode}
-          onClick={() => handleEnterExistingRoom(roomCode, userName, position)}
-        >
+        <Button variant="outlined" href={`room/${roomCode}`} disabled={!hasRoomCode}>
           Continue
         </Button>
       </Grid>

@@ -4,8 +4,10 @@ import { GetStaticProps } from 'next';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import Grid from '@mui/material/Grid';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, TextField, Typography } from '@mui/material';
 import { Map } from '@/components/Map';
+import { useEffect, useState } from 'react';
+import { getParticipantId } from '@/lib/web';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const roomSlug = context.params?.slug as string;
@@ -39,24 +41,55 @@ const MapCard = () => (
   </Card>
 );
 
-const DetailsCard = ({ room }: { room: RoomProps }) => (
+const DetailsCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => (
   <Card style={{ marginTop: '150px' }}>
     <CardContent>
       <Typography gutterBottom variant="h5" component="div">
         Room: {room.name}
       </Typography>
       Participants
-      {room.participants.map((v, index) => (
-        <Typography key={index} variant="body2" color="text.secondary">
-          {v.name} - {JSON.stringify(v.location)}
-        </Typography>
-      ))}
+      {room.participants.map((v, index) => {
+        const isParticipant = v._id === participantId;
+        return (
+          <Typography key={index} variant="body2" color="text.secondary">
+            {v.name} - {JSON.stringify(v.location)} {isParticipant ? '<-' : ''}
+          </Typography>
+        );
+      })}
     </CardContent>
   </Card>
 );
 
+const TakePartCard = ({ room }: { room: RoomProps }) => {
+  const [name, setName] = useState('');
+  const disabled = !name || name.length <= 3;
+  return (
+    <Card style={{ marginTop: '50px' }}>
+      <CardContent>
+        <TextField id="standard-basic" label="Name" variant="standard" onChange={(v) => setName(v.target.value)} />
+        <Typography variant="body2" gutterBottom style={{ marginTop: '10px' }}>
+          Location: Zürich, Switzerland (detected)
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="medium" disabled={disabled} onClick={() => console.log('add participant', { name })}>
+          Take part
+        </Button>
+      </CardActions>
+    </Card>
+  );
+};
+
 const Room = ({ room }: { room: RoomProps }) => {
+  const [participantId, setParticipantId] = useState('');
+
+  useEffect(() => {
+    setParticipantId(getParticipantId());
+  }, []);
+
   if (!room) return null;
+
+  const hasParticipant = room.participants.find((v) => v._id === participantId);
 
   return (
     <>
@@ -70,7 +103,8 @@ const Room = ({ room }: { room: RoomProps }) => {
           <MapCard />
         </Grid>
         <Grid xs={6}>
-          <DetailsCard room={room} />
+          <DetailsCard room={room} participantId={participantId} />
+          {!hasParticipant && <TakePartCard room={room} />}
         </Grid>
       </Grid>
     </>
