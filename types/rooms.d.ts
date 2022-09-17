@@ -1,4 +1,4 @@
-type Id = string;
+type Id = typeof ObjectId;
 
 declare type RoomProps = {
   _id: Id;
