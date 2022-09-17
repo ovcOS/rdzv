@@ -51,8 +51,7 @@ const loadAddress = async (geocoder: google.maps.Geocoder, v: ParticipantProps) 
 
 export const HeaderCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => {
   const geocoder = new google.maps.Geocoder();
-  const [participants, setParticipants] = useState([] as ParticipantWithAddressProps[]);
-  const i = 0;
+  const [participants, setParticipants] = useState(room.participants as ParticipantWithAddressProps[]);
 
   useEffect(() => {
     const reviseParticipants = async () => {
