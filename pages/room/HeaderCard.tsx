@@ -36,11 +36,14 @@ const stringAvatar = (name: string) => {
   };
 };
 
-export const DetailsCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => (
-  <Card style={{ margin: '10px' }}>
+export const HeaderCard = ({ room, participantId }: { room: RoomProps; participantId: Id }) => (
+  <Card>
     <CardContent>
-      <Typography gutterBottom variant="h5" component="div" style={{ marginBottom: '20px', textAlign: 'center' }}>
-        🏡 Room {room.name}
+      <Typography gutterBottom variant="h5" component="div" style={{ marginBottom: '20px' }}>
+        Let’s meet: 🏡 {room.name}
+      </Typography>
+      <Typography gutterBottom variant="h6" component="div" style={{ marginBottom: '20px' }}>
+        Who’s coming so far?
       </Typography>
       {room.participants.map((v, i) => {
         const { id, name, location } = v;
@@ -48,11 +51,20 @@ export const DetailsCard = ({ room, participantId }: { room: RoomProps; particip
         const isParticipant = id === participantId;
         return (
           <Paper key={i} variant="outlined">
-            <Grid container wrap="nowrap">
-              <Avatar {...stringAvatar(name)} style={{ marginRight: '5px' }} /> {v.name}
+            <Grid container wrap="nowrap" style={{ display: 'flex', alignItems: 'center' }}>
+              <Avatar {...stringAvatar(name)} style={{ margin: '8px' }} /> {v.name}
             </Grid>
             <Grid container wrap="nowrap">
-              <Grid xs={11}>
+              <Grid
+                xs={11}
+                style={{
+                  marginLeft: '15px',
+                  marginTop: '5px',
+                  marginBottom: '5px',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
                 <LocationOnIcon /> {lat} {lng}
               </Grid>
               <Grid xs={1}>{isParticipant ? <CheckBoxIcon /> : ''}</Grid>
