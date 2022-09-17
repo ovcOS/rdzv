@@ -2,9 +2,12 @@ import { createRoom } from '@/lib/api-client';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export const NewRoomSettings = () => {
+  const router = useRouter();
+
   const [roomName, setRoomName] = useState('testName');
   const hasRoomName = !!roomName;
   return (
@@ -23,7 +26,8 @@ export const NewRoomSettings = () => {
           variant="outlined"
           onClick={async () => {
             const room = await createRoom(roomName);
-            console.log({ room });
+            const { slug } = room;
+            router.push(`room/${slug}`);
           }}
           disabled={!hasRoomName}
         >
