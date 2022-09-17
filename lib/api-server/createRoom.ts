@@ -16,7 +16,7 @@ export const createRoom = async (name: string): Promise<RoomProps> => {
   const slug = getSlug(name);
   const existingRoom = await loadRoom(slug);
   const randomNumber = Math.floor(Math.random() * 9999);
-  const revisedSlug = existingRoom ? `${slug}#${randomNumber}` : slug;
+  const revisedSlug = existingRoom ? `${slug}-${randomNumber}` : slug;
 
   const newRoom: RoomProps = {
     ...getDefaults(),
