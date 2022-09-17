@@ -101,7 +101,6 @@ export const Map = React.memo(() => {
     }
   };
 
-  console.log({ directionsResult });
   return (
     <LoadScript libraries={LIBRARIES} googleMapsApiKey="AIzaSyDEq9i1TN3va9qFrydwl-0TfbpLmhb_FxQ">
       <div className="d-block" style={{ height: '50px' }}>
@@ -112,20 +111,20 @@ export const Map = React.memo(() => {
           <input type="text" placeholder="Where do you want to go?" style={autoCompleteStyle} />
         </Autocomplete>
       </div>
-      {!!(origin && destination && !directionsResult) && (
-        <DirectionsService
-          options={{ destination: destination, origin, travelMode }}
-          callback={(result, status) => directionsServiceCallback(result, status)}
-        />
-      )}
-      {!!directionsResult && (
-        <DirectionsRenderer
-          options={{
-            directions: directionsResult,
-          }}
-        />
-      )}
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={ZOOM}>
+        {!!(origin && destination && !directionsResult) && (
+          <DirectionsService
+            options={{ destination: destination, origin, travelMode }}
+            callback={(result, status) => directionsServiceCallback(result, status)}
+          />
+        )}
+        {!!directionsResult && (
+          <DirectionsRenderer
+            options={{
+              directions: directionsResult,
+            }}
+          />
+        )}
         <Marker position={origin} onPositionChanged={() => console.log('marker position changed', origin)} visible />
       </GoogleMap>
     </LoadScript>
