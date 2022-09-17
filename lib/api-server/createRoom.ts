@@ -12,7 +12,7 @@ const getDefaults = () => ({
   location: null,
 });
 
-export const createRoom = async (name: string) => {
+export const createRoom = async (name: string): Promise<RoomProps> => {
   const slug = getSlug(name);
   const existingRoom = await loadRoom(slug);
   const revisedSlug = existingRoom ? `${slug}0` : slug;
