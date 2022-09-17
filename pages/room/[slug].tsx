@@ -43,7 +43,7 @@ const DetailsCard = ({ room }: { room: RoomProps }) => (
   <Card style={{ marginTop: '150px' }}>
     <CardContent>
       <Typography gutterBottom variant="h5" component="div">
-        {room.name}
+        Room: {room.name}
       </Typography>
       Participants
       {room.participants.map((v, index) => (
