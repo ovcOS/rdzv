@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { loadRoom, loadRooms } from '@/lib/db';
 import { GetStaticProps } from 'next';
-import HomeIcon from '@mui/icons-material/Home';
-import Link from 'next/link';
 import Grid from '@mui/material/Grid';
-import { Button, Card, CardActions, CardContent, TextField, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Container, Paper, TextField, Typography } from '@mui/material';
 import { Map } from '@/components/Map';
 import { useEffect, useState } from 'react';
 import { getParticipantId } from '@/lib/web';
-import ShareIcon from '@mui/icons-material/Share';
 import { joinRoom } from '@/lib/api-client';
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -102,22 +99,9 @@ const Room = ({ room }: { room: RoomProps }) => {
   const hasParticipant = room.participants.find((v) => v.id === participantId);
 
   return (
-    <>
+    <Container maxWidth="md">
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid xs={12}>
-          <Link href="/">
-            <HomeIcon color="inherit" aria-label="home" sx={{ mr: 2 }} style={{ margin: '15px' }} />
-          </Link>
-          <ShareIcon
-            color="inherit"
-            aria-label="share"
-            sx={{ mr: 2 }}
-            style={{ margin: '15px' }}
-            onClick={async () => {
-              navigator.clipboard.writeText(window.location.href);
-            }}
-          />
-        </Grid>
+        <Grid xs={12}></Grid>
         <Grid xs={6}>
           <MapCard />
         </Grid>
@@ -126,7 +110,7 @@ const Room = ({ room }: { room: RoomProps }) => {
           {!hasParticipant && <TakePartCard room={room} participantId={participantId} />}
         </Grid>
       </Grid>
-    </>
+    </Container>
   );
 };
 

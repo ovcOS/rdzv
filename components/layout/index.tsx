@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import { Theme } from './theme';
+import NavHeader from './NavHeader';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -14,6 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         </Head>
 
+        <NavHeader />
         <main className={styles.main}>{children}</main>
       </div>
     </Theme>
