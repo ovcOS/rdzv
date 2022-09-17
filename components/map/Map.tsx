@@ -10,6 +10,7 @@ import {
   DEFAULT_POSITION,
   directionsServiceCallback,
   mapStyles,
+  SetState,
 } from './lib';
 
 export const Map = React.memo(
@@ -17,10 +18,14 @@ export const Map = React.memo(
     participantOrigin,
     existingOrigins = [],
     existingMeetingLocation,
+    newMeetingLocation,
+    setNewMeetingLocation,
   }: {
     participantOrigin: LocationProps | null;
     existingMeetingLocation?: LocationProps;
     existingOrigins?: LocationProps[];
+    newMeetingLocation: LocationProps | undefined;
+    setNewMeetingLocation: SetState<LocationProps | undefined>;
   }) => {
     const [center, setCenter] = useState(DEFAULT_POSITION);
     const [travelMode] = useState('TRANSIT' as TravelMode);
@@ -30,19 +35,20 @@ export const Map = React.memo(
       setInitialMapCenter(setCenter, existingMeetingLocation);
     }, [existingMeetingLocation]);
 
-    // if the first origin is set by the current user, display a message telling them
-    // a route will be defined once more people define their origin
-
     const originsToFinalDestination = useMemo(
-      () => mapOriginsToFinalDestination(existingOrigins, participantOrigin),
-      [existingOrigins, participantOrigin]
+      () =>
+        mapOriginsToFinalDestination({ existingOrigins, participantOrigin, newMeetingLocation, setNewMeetingLocation }),
+      [existingOrigins, participantOrigin, newMeetingLocation]
     );
 
     return (
       <>
         {existingMeetingLocation && (
           <>
-            <h4>So far, the most optimal meeting point for your group is {existingMeetingLocation.lat}</h4>
+            <h4>
+              So far, the most optimal meeting point for your group is {existingMeetingLocation.lat}{' '}
+              {existingMeetingLocation.lng}
+            </h4>
           </>
         )}
         <GoogleMap
@@ -52,7 +58,7 @@ export const Map = React.memo(
           center={center}
           zoom={ZOOM}
         >
-          {!!(participantOrigin && !directionsResult.length) &&
+          {!directionsResult.length &&
             originsToFinalDestination.map(({ origin, destination }, i) => (
               <DirectionsService
                 key={`${origin.lat}-${i}`}

@@ -1,9 +1,18 @@
-export const mapOriginsToFinalDestination = (
-  existingOrigins: LocationProps[],
-  participantOrigin: LocationProps | null
-): { origin: LocationProps; destination: LocationProps }[] => {
+import { SetState } from './types';
+
+export const mapOriginsToFinalDestination = ({
+  existingOrigins,
+  participantOrigin,
+  newMeetingLocation,
+  setNewMeetingLocation,
+}: {
+  existingOrigins: LocationProps[];
+  participantOrigin: LocationProps | null;
+  newMeetingLocation: LocationProps | undefined;
+  setNewMeetingLocation: SetState<LocationProps | undefined>;
+}): { origin: LocationProps; destination: LocationProps }[] => {
   const allOrigins = [...existingOrigins, ...(participantOrigin ? [participantOrigin] : [])];
-  const finalDestination = allOrigins.reduce(
+  const meetingLocation = allOrigins.reduce(
     (res, location, index, original) => {
       const { length } = original;
       const { lat, lng } = location;
@@ -15,5 +24,8 @@ export const mapOriginsToFinalDestination = (
     },
     { lat: 0, lng: 0 }
   );
-  return allOrigins.map((v) => ({ origin: v, destination: finalDestination }));
+  if (participantOrigin && !newMeetingLocation) {
+    setNewMeetingLocation(meetingLocation);
+  }
+  return allOrigins.map((v) => ({ origin: v, destination: meetingLocation }));
 };

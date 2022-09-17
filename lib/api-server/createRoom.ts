@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { insertRoom, loadRoom } from '../db';
+import { insertRoomInternal, loadRoom } from '../db';
 import { getRandomNumber } from '../utils';
 import { TravelMode } from './constants';
 import { getSlug } from './helpers';
@@ -24,6 +24,6 @@ export const createRoom = async (name: string): Promise<RoomProps> => {
     name,
     slug: revisedSlug,
   };
-  await insertRoom(newRoom);
+  await insertRoomInternal(newRoom);
   return newRoom;
 };

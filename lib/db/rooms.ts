@@ -19,12 +19,12 @@ export const loadRoom = async (slug: string): Promise<RoomProps | null> => {
   return room;
 };
 
-export const insertRoom = async (room: RoomProps): Promise<void> => {
+export const insertRoomInternal = async (room: RoomProps): Promise<void> => {
   const collection = await getRoomsCollection();
   collection.insertOne(room);
 };
 
-export const updateRoom = async (room: RoomProps): Promise<void> => {
+export const updateRoomInternal = async (room: RoomProps): Promise<void> => {
   const collection = await getRoomsCollection();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, ...newRoom } = room;
