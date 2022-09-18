@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-import { useMemo } from 'react';
+
 import {
   containerStyle,
   DirectionsResult,
@@ -36,6 +36,7 @@ export const Map = React.memo(
     useEffect(() => {
       setInitialMapCenter(setCenter, existingMeetingLocation);
     }, [existingMeetingLocation]);
+
     useEffect(() => {
       setOriginsToFinalDestination(
         mapOriginsToFinalDestination({
