@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 
+const existingMeetingAddress = async (
+  geocoder: google.maps.Geocoder,
+  location: LocationProps,
+  setAddress: (arg: string) => void
+) => {
+  try {
+    const response = await geocoder.geocode({ location });
+    const address = response.results[0].formatted_address;
+    setAddress(address);
+  } catch (err) {
+    return;
+  }
+};
+
 import {
   containerStyle,
   DirectionsResult,
@@ -33,9 +47,10 @@ export const Map = React.memo(
     const [directionsResult, setDirectionsResult] = useState([] as DirectionsResult[]);
     const [originsToFinalDestination, setOriginsToFinalDestination] = useState([] as OriginToFinalDestination[]);
 
-    useEffect(() => {
-      setInitialMapCenter(setCenter, existingMeetingLocation);
-    }, [existingMeetingLocation]);
+    const geocoder = new google.maps.Geocoder();
+    const [address, setAddress] = useState('');
+
+    if (existingMeetingLocation) existingMeetingAddress(geocoder, existingMeetingLocation, setAddress);
 
     useEffect(() => {
       setOriginsToFinalDestination(
@@ -54,8 +69,8 @@ export const Map = React.memo(
         {existingMeetingLocation && (
           <>
             <h4>
-              So far, the most optimal meeting point for your group is {existingMeetingLocation.lat}{' '}
-              {existingMeetingLocation.lng}
+              So far, the most optimal meeting point for your group is: {address} ({existingMeetingLocation.lat},
+              {existingMeetingLocation.lng})
             </h4>
           </>
         )}
