@@ -66,14 +66,13 @@ export const Map = React.memo(
           center={center}
           zoom={ZOOM}
         >
-          {!directionsResult.length &&
-            originsToFinalDestination.map(({ origin, destination }, i) => (
-              <DirectionsService
-                key={`${origin.lat}-${i}`}
-                options={{ destination, origin, travelMode }}
-                callback={directionsServiceCallback(setDirectionsResult)}
-              />
-            ))}
+          {originsToFinalDestination.map(({ origin, destination }, i) => (
+            <DirectionsService
+              key={`${origin.lat}-${i}`}
+              options={{ destination, origin, travelMode }}
+              callback={directionsServiceCallback(setDirectionsResult)}
+            />
+          ))}
           {!!directionsResult.length &&
             directionsResult.map((directions, i) => (
               <DirectionsRenderer key={`directions-renderer-${i}`} options={{ directions }} />
