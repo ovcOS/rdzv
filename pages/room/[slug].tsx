@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { getParticipantId } from '@/lib/web';
 import { HeaderCard, ParticipantForm } from '@/components/room';
 import { LoadScript } from '@react-google-maps/api';
-import { LIBRARIES } from '@/components/map/lib';
+import { LIBRARIES, SetState } from '@/components/map/lib';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const roomSlug = context.params?.slug as string;
@@ -28,12 +28,29 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-const MapCard = ({ room, participantOrigin }: { room: RoomProps; participantOrigin: LocationProps | null }) => {
-  const existingOrigins = room.participants.map((v) => v.location);
+const MapCard = ({
+  room,
+  participantOrigin,
+  newMeetingLocation,
+  setNewMeetingLocation,
+}: {
+  room: RoomProps;
+  participantOrigin: LocationProps | null;
+  newMeetingLocation: LocationProps | undefined;
+  setNewMeetingLocation: SetState<LocationProps | undefined>;
+}) => {
+  const { participants, meetingLocation } = room;
+  const existingOrigins = participants.map((v) => v.location);
   return (
     <Card>
       <CardContent>
-        <Map existingOrigins={existingOrigins} participantOrigin={participantOrigin} />
+        <Map
+          existingOrigins={existingOrigins}
+          participantOrigin={participantOrigin}
+          existingMeetingLocation={meetingLocation}
+          newMeetingLocation={newMeetingLocation}
+          setNewMeetingLocation={setNewMeetingLocation}
+        />
       </CardContent>
     </Card>
   );
@@ -42,6 +59,7 @@ const MapCard = ({ room, participantOrigin }: { room: RoomProps; participantOrig
 const Room = ({ room }: { room: RoomProps }) => {
   const [participantId, setParticipantId] = useState('');
   const [participantOrigin, setSelectedOrigin] = useState(null as LocationProps | null);
+  const [newMeetingLocation, setNewMeetingLocation] = useState(undefined as LocationProps | undefined);
 
   useEffect(() => {
     setParticipantId(getParticipantId());
@@ -66,6 +84,7 @@ const Room = ({ room }: { room: RoomProps }) => {
                 room={room}
                 participantId={participantId}
                 origin={participantOrigin}
+                newMeetingLocation={newMeetingLocation}
                 setSelectedOrigin={setSelectedOrigin}
               />
             </Grid>
@@ -73,7 +92,12 @@ const Room = ({ room }: { room: RoomProps }) => {
         )}
         <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12}>
-            <MapCard room={room} participantOrigin={participantOrigin} />
+            <MapCard
+              room={room}
+              participantOrigin={participantOrigin}
+              newMeetingLocation={newMeetingLocation}
+              setNewMeetingLocation={setNewMeetingLocation}
+            />
           </Grid>
         </Grid>
       </Container>
