@@ -21,3 +21,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Deployed on Vercel
 
 https://rdzv.vercel.app/
+
+## Technologies Used
+
+- [nextjs](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Material UI](https://mui.com/)
+- [Google Maps APIs](https://react-google-maps-api-docs.netlify.app/)
+- [MongoDB](https://www.mongodb.com/)
+- [Vercel](https://vercel.com/)
